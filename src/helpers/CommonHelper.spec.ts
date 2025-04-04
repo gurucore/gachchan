@@ -219,15 +219,6 @@ describe('CommonHelper', () => {
   })
 
   //
-  describe('camelToSnakeCase', () => {
-    it('should be convert to snake', () => {
-      expect(target.camelToSnakeCase('someHereIsGood')).toBe('some_here_is_good')
-      expect(target.camelToSnakeCase('OneTwoThree')).toBe('one_two_three')
-      expect(target.camelToSnakeCase('anotherExample')).toBe('another_example')
-      expect(target.camelToSnakeCase('CAPITALIZED')).toBe('c_a_p_i_t_a_l_i_z_e_d')
-    })
-  })
-
   describe('objectMapKeys', () => {
     it('should be mapped, and remove non-mapped keys', () => {
       const actual = target.objectMapKeys(
@@ -249,20 +240,42 @@ describe('CommonHelper', () => {
     })
   })
 
-  describe('toCamelCase', () => {
-    it('converts basic snake_case to camelCase', () => {
-      expect(target.toCamelCase('some_case_here')).toEqual('someCaseHere')
-      expect(target.toCamelCase('hello_world')).toBe('helloWorld')
-    })
+  describe('deepMerge', () => {
+    it('should be merged', () => {
+      const actual = target.deepMerge(
+        {
+          a: 1,
+          b: 2,
+          c: 3,
+          e: {
+            e1: 1,
+            e2: 2,
+          },
+        },
+        {
+          a: 'AA',
+          b: 'BB',
+          d: 4,
 
-    it('handles single words', () => {
-      expect(target.toCamelCase('hello')).toBe('hello')
-    })
-    it('handles empty string', () => {
-      expect(target.toCamelCase('')).toBe('')
-    })
-    it('handles string with leading underscore', () => {
-      expect(target.toCamelCase('_hello_world')).toBe('helloWorld')
+          e: {
+            e3: 3,
+            e4: 4,
+          },
+        }
+      )
+
+      expect(actual).toMatchObject({
+        a: 'AA',
+        b: 'BB',
+        c: 3,
+        d: 4,
+        e: {
+          e1: 1,
+          e2: 2,
+          e3: 3,
+          e4: 4,
+        },
+      })
     })
   })
 

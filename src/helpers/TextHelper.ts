@@ -29,4 +29,25 @@ export class TextHelper {
 
     return icon + (withText ? text : '')
   }
+
+  /**
+   * Convert snake_case to camelCase
+   * @param str
+   * @returns
+   */
+  static toCamelCase(str: string): string {
+    if (!str) return str // empty string case
+
+    const cleanedStr = str.startsWith('_') ? str.substring(1) : str // Handle leading underscore by removing it first
+    return cleanedStr.replace(/_./g, (match) => match.charAt(1).toUpperCase())
+  }
+
+  /** convert camelCase to snake_case
+   * @example someHereIsGood ==> some_here_is_good. CAPITALIZED ==> c_a_p_i_t_a_l_i_z_e_d
+   */
+  static camelToSnakeCase(str: string): string {
+    const snakeCase = str.replace(/([A-Z])/g, (match, p1) => `_${p1.toLowerCase()}`)
+
+    return snakeCase.startsWith('_') ? snakeCase.slice(1) : snakeCase
+  }
 }

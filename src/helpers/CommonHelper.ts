@@ -6,6 +6,7 @@ import _intersection from 'lodash/intersection.js'
 
 import Decimal from 'decimal.js'
 import { nanoid } from 'nanoid'
+import { TextHelper } from './TextHelper'
 
 export class CommonHelper {
   /**
@@ -349,14 +350,10 @@ export class CommonHelper {
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
   }
 
-  /** convert camelCase to snake_case
-   * @example someHereIsGood ==> some_here_is_good. CAPITALIZED ==> c_a_p_i_t_a_l_i_z_e_d
-   */
-  static camelToSnakeCase(str: string): string {
-    const snakeCase = str.replace(/([A-Z])/g, (match, p1) => `_${p1.toLowerCase()}`)
-
-    return snakeCase.startsWith('_') ? snakeCase.slice(1) : snakeCase
-  }
+  /** @deprecated use TextHelper */
+  static camelToSnakeCase = TextHelper.camelToSnakeCase
+  /** @deprecated use TextHelper */
+  static toCamelCase = TextHelper.toCamelCase
 
   /** (from source), create new object contains mapped fields.
    * @example {a:1, b:2, c:3} with map {a:AA, b:BB} ==> {AA:1, BB:2} (and omit c:3)
@@ -368,16 +365,23 @@ export class CommonHelper {
     }, {} as any)
   }
 
-  /**
-   * Convert snake_case to camelCase
-   * @param str
-   * @returns
+  /** "Deep" merge source into target, also return target.
+   * If you want more complex case, use "npm:deepmerge".
+   * @example "a" and "b" is merged normally, the "deep" ability is in the nested object of "c":
+   * {a:1, b:2, c:{c1:1}} with {a:10, c:{c1:11, c2:2}}
+   * ==> {a:10, b:2, c:{c1: 11, c2:2}}
    */
-  static toCamelCase(str: string): string {
-    if (!str) return str // empty string case
-
-    const cleanedStr = str.startsWith('_') ? str.substring(1) : str // Handle leading underscore by removing it first
-    return cleanedStr.replace(/_./g, (match) => match.charAt(1).toUpperCase())
+  static deepMerge(target: any, source: any): object {
+    for (const key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        if (source[key] && typeof source[key] === 'object' && target[key] && typeof target[key] === 'object') {
+          target[key] = this.deepMerge({ ...target[key] }, source[key])
+        } else {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
   }
 
   /**
@@ -394,7 +398,7 @@ export class CommonHelper {
 
     if (objOrArray !== null && typeof objOrArray === 'object') {
       return Object.keys(objOrArray).reduce((acc: Record<string, any>, key: string) => {
-        const camelKey = CommonHelper.toCamelCase(key) // Convert key to camelCase
+        const camelKey = TextHelper.toCamelCase(key) // Convert key to camelCase
         acc[camelKey] = CommonHelper.convertKeysToCamelCase((objOrArray as Record<string, any>)[key]) // Recursively handle nested objects
         return acc
       }, {})
