@@ -9,16 +9,16 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 export default {
   input: 'src/index.ts',
   output: [
-    // {
-    //   file: 'gachchan.umd.js',
-    //   format: 'umd'
-    // },
-    // {
-    //   file: 'gachchan.es.js',
-    //   format: 'es'
-    // },
     {
-      file: 'gachchan.js',
+      file: 'gachchan.umd.js',
+      format: 'umd',
+    },
+    {
+      file: 'gachchan.es.mjs',
+      format: 'es',
+    },
+    {
+      file: 'gachchan.cjs',
       format: 'cjs',
     },
   ],
