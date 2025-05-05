@@ -1,4 +1,5 @@
 **/.eslintignore
 **/.parcel-cache
 **/.github/README.md
+**/.github/*
 coverage

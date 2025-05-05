@@ -14,8 +14,8 @@
   "files.exclude": {
     // "**/package-lock.json": true,
     // "**/pnpm-lock.yaml": true,
-    "**/.parcel-cache": true,
-    "**/dist/": true
+    "**/.parcel-cache": true
+    // "**/dist/": true
   },
   "search.exclude": {
     "**/node_modules": true,
