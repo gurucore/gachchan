@@ -12,8 +12,8 @@
   "typescript.referencesCodeLens.enabled": true,
 
   "files.exclude": {
-    "**/package-lock.json": true,
-    "**/pnpm-lock.yaml": true,
+    // "**/package-lock.json": true,
+    // "**/pnpm-lock.yaml": true,
     "**/.parcel-cache": true,
     "**/dist/": true
   },
