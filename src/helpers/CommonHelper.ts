@@ -8,6 +8,19 @@ import Decimal from 'decimal.js'
 import { nanoid } from 'nanoid'
 import { TextHelper } from './TextHelper'
 
+export interface RetryOptions {
+  /* Maximum number of retry attempts */
+  maxRetries?: number
+  // Base delay between retries in milliseconds
+  delay?: number
+  // Whether to use exponential backoff for delays
+  exponentialBackoff?: boolean
+  // Array of error types to retry on (example [Error])
+  retryOnErrors?: Array<Function>
+  // Callback function called on each retry with (error, attemptNumber)
+  onRetry?: (error: any, attemptNumber: number) => void
+}
+
 export class CommonHelper {
   /**
    * if provide a number or number-string, this will return a number, with fractationDigits
@@ -44,6 +57,50 @@ export class CommonHelper {
   static roundNumber(value: number, decimalPlaces = 1) {
     const decimalPlacesMultiplier = Math.pow(10, decimalPlaces)
     return Math.round((value + Number.EPSILON) * decimalPlacesMultiplier) / decimalPlacesMultiplier
+  }
+
+  /**
+   * This retry helper function provides a flexible way to handle transient failures in your code.
+   * Retries a function execution with configurable retry logic
+   *
+   * @param fn The function to execute
+   * @param options Configuration options. Default max 3 retries, delay 1000ms with exponetialBackoff
+   * @returns Result of the function execution
+   */
+  static async retry(fn: Function, options: RetryOptions) {
+    const { maxRetries = 3, delay = 1000, exponentialBackoff = true, retryOnErrors = [Error], onRetry } = options
+
+    let lastError
+
+    for (let attempt = 1; attempt <= maxRetries + 1; attempt++) {
+      try {
+        return await fn()
+      } catch (error) {
+        lastError = error
+
+        // Check if we should retry this type of error
+        const shouldRetryError = retryOnErrors.some((errorType) => error instanceof errorType)
+
+        // If we've reached max retries or this error type shouldn't be retried, throw
+        if (attempt > maxRetries || !shouldRetryError) {
+          throw lastError
+        }
+
+        // Calculate delay with exponential backoff if enabled
+        const currentDelay = exponentialBackoff ? delay * Math.pow(2, attempt - 1) : delay
+
+        // Call onRetry callback if provided
+        if (onRetry && typeof onRetry === 'function') {
+          onRetry(error, attempt)
+        }
+
+        // delay for next execution
+        await new Promise((resolve) => setTimeout(resolve, currentDelay))
+      }
+    }
+
+    // This should never be reached due to the for loop logic, but including as a safeguard
+    throw lastError
   }
 
   /**

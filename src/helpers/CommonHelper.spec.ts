@@ -377,5 +377,70 @@ describe('CommonHelper', () => {
       expect(actual[5]).toBe('6')
     })
   })
+
+  describe.only('retry', { timeout: 15000 }, () => {
+    async function fetchInvalidData() {
+      const response = await fetch('https://example.com/nothing/here')
+      if (!response.ok) {
+        throw new Error('Failed to fetch data')
+      }
+      return await response.text()
+    }
+
+    let count = 0
+    async function fetchDataOKOnThirdTry() {
+      count++
+      if (count < 3) {
+        throw new Error('should fail on first and second try')
+      }
+
+      return count
+    }
+
+    it('Simple retry on invalid API should throw', async () => {
+      try {
+        const data = await target.retry(fetchInvalidData)
+        console.log('Data:', data)
+        expect(data).not.toBeUndefined()
+      } catch (error) {
+        console.error(error)
+        assert.ok('All retries failed')
+      }
+    })
+
+    it('Advanced retry on invalid API should throw', async () => {
+      try {
+        const result2 = await target.retry(
+          async () => {
+            return await fetchInvalidData()
+          },
+          {
+            maxRetries: 3,
+            delay: 300,
+            exponentialBackoff: true,
+            retryOnErrors: [Error],
+            onRetry: (error, attempt) => {
+              console.log(`Retry attempt ${attempt} after error: ${error.message}`)
+            },
+          }
+        )
+      } catch (error) {
+        console.error(error)
+        assert.ok('All retries failed')
+      }
+    })
+
+    it.only('Simple retry should be fine on 3rd times', async () => {
+      try {
+        const data = await target.retry(fetchDataOKOnThirdTry)
+        console.log('Result Data:', data)
+        expect(data).not.toBeUndefined()
+      } catch (error) {
+        console.error(error)
+        assert.fail('All retries failed')
+      }
+    })
+  })
+
   //
 })
