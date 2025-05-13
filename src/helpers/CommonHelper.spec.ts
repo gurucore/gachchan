@@ -378,7 +378,7 @@ describe('CommonHelper', () => {
     })
   })
 
-  describe.only('retry', { timeout: 15000 }, () => {
+  describe('retry', { timeout: 15000 }, () => {
     async function fetchInvalidData() {
       const response = await fetch('https://example.com/nothing/here')
       if (!response.ok) {
@@ -430,7 +430,7 @@ describe('CommonHelper', () => {
       }
     })
 
-    it.only('Simple retry should be fine on 3rd times', async () => {
+    it('Simple retry should be fine on 3rd times', async () => {
       try {
         const data = await target.retry(fetchDataOKOnThirdTry)
         console.log('Result Data:', data)

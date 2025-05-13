@@ -67,7 +67,7 @@ export class CommonHelper {
    * @param options Configuration options. Default max 3 retries, delay 1000ms with exponetialBackoff
    * @returns Result of the function execution
    */
-  static async retry(fn: Function, options: RetryOptions) {
+  static async retry(fn: Function, options: RetryOptions = {}) {
     const { maxRetries = 3, delay = 1000, exponentialBackoff = true, retryOnErrors = [Error], onRetry } = options
 
     let lastError
