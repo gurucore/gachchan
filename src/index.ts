@@ -3,7 +3,8 @@ import { HtmlHelper } from './helpers/HtmlHelper'
 import { DateTimeHelper } from './helpers/DateTimeHelper'
 import { AuthHelper } from './helpers/AuthHelper'
 import { TextHelper } from './helpers/TextHelper'
-// import { ReactiveSymbolHistoryStore } from "./helper/ReactiveSymbolHistoryStore.ts.bak"
+
+import { CustomError } from './CustomError'
 
 export {
   CommonHelper,
@@ -11,5 +12,6 @@ export {
   DateTimeHelper,
   AuthHelper,
   TextHelper,
-  // ReactiveSymbolHistoryStore
+  //
+  CustomError,
 }
