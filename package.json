@@ -1,6 +1,6 @@
 {
   "name": "gachchan",
-  "version": "8.3.1",
+  "version": "9.0.0",
   "description": "Shared lib (work in node and browser) for common functionalities",
   "releasenote": "Add CustomError. Add deepmerge. Moving toCamelCase camelToSnakeCase. Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
@@ -30,7 +30,6 @@
     "CHANGELOG.md",
     "README.md"
   ],
-  "type": "module",
   "source": "src/index.ts",
   "main": "./dist/gachchan.cjs",
   "module": "./dist/gachchan.es.mjs",
