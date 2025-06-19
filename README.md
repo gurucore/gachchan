@@ -1,8 +1,11 @@
 # gachchan: common funcs for both Serverside and Clientside
 
+[![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dt/gachchan)](https://npm.im/gachchan)
+[![Push (CI check)](https://github.com/gurucore/gachchan/actions/workflows/push.yml/badge.svg)](https://github.com/gurucore/gachchan/actions/workflows/push.yml)
+
 ## Install
 
-run `npm i gachchan`
+`npm i gachchan`
 
 ## Notable Dependencies
 
@@ -24,8 +27,6 @@ https://github.com/sponsors/lockevn
 - change `package.json` version string
 - (Optional) run in local those commands `pnpm run ci` and `pnpm release` to build the output package (to test)
 - Create git tag and publish the git tag
-
-[![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dt/gachchan)](https://npm.im/gachchan)
 
 ---
 
