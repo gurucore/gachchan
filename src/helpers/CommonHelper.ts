@@ -407,11 +407,6 @@ export class CommonHelper {
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
   }
 
-  /** @deprecated use TextHelper */
-  static camelToSnakeCase = TextHelper.camelToSnakeCase
-  /** @deprecated use TextHelper */
-  static toCamelCase = TextHelper.toCamelCase
-
   /** (from source), create new object contains mapped fields.
    * @example {a:1, b:2, c:3} with map {a:AA, b:BB} ==> {AA:1, BB:2} (and omit c:3)
    */
@@ -488,7 +483,26 @@ export class CommonHelper {
     return new Date(parseInt(jsonDateString.replace('/Date(', '').replace(')/', '')))
   }
 
+  /** get nameof the variable.
+   * @example const myVar = "hello"; nameof({myVar}) ==> "myVar"
+   */
+  static nameof(variable: Record<string, any>) {
+    return Object.keys(variable)[0]
+  }
+
+  static isObject<T = Record<string, unknown>>(value: unknown): value is T {
+    return value !== null && typeof value === 'object' && !Array.isArray(value)
+  }
+
+  /* eslint-disable  promise/param-names, no-promise-executor-return  */
+  sleep = async (ms: number) => new Promise((r) => setTimeout(r, ms))
+
   // #region @deprecated
-  //
+
+  /** @deprecated use TextHelper */
+  static camelToSnakeCase = TextHelper.camelToSnakeCase
+  /** @deprecated use TextHelper */
+  static toCamelCase = TextHelper.toCamelCase
+
   // #endregion
 }

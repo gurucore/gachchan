@@ -442,5 +442,31 @@ describe('CommonHelper', () => {
     })
   })
 
+  describe('nameof', () => {
+    it('nameof({me}) should be me', () => {
+      const me = 'lockevn'
+      expect(target.nameof({ me })).toBe('me')
+
+      const very_long_name = 'lockevn'
+      expect(target.nameof({ very_long_name })).toBe('very_long_name')
+    })
+  })
+  describe('isObject', () => {
+    it('obj should be true', () => {
+      expect(target.isObject({ a: 1 })).toBeTruthy()
+      expect(target.isObject(new Date())).toBeTruthy()
+      expect(target.isObject(JSON.parse('{}'))).toBeTruthy()
+
+      expect(target.isObject(JSON.parse('[]'))).toBeFalsy()
+      expect(target.isObject([1, 2, 3])).toBeFalsy()
+      expect(target.isObject(null)).toBeFalsy()
+      expect(target.isObject(undefined)).toBeFalsy()
+      expect(target.isObject(1)).toBeFalsy()
+      expect(target.isObject('1')).toBeFalsy()
+      expect(target.isObject(true)).toBeFalsy()
+      expect(target.isObject(false)).toBeFalsy()
+      expect(target.isObject(() => {})).toBeFalsy()
+    })
+  })
   //
 })

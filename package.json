@@ -1,8 +1,8 @@
 {
   "name": "gachchan",
-  "version": "9.0.1",
+  "version": "9.1.0",
   "description": "Shared lib (work in node and browser) for common functionalities",
-  "releasenote": "Add CustomError. Add deepmerge. Moving toCamelCase camelToSnakeCase. Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
+  "releasenote": "Add nameof, sleep, isObject to CommonHelper. Add CustomError. Add deepmerge. Moving toCamelCase camelToSnakeCase. Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
   "license": "GPL-3.0-only",
   "keywords": [
