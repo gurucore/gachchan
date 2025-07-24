@@ -495,7 +495,7 @@ export class CommonHelper {
   }
 
   /* eslint-disable  promise/param-names, no-promise-executor-return  */
-  sleep = async (ms: number) => new Promise((r) => setTimeout(r, ms))
+  static sleep = async (ms: number) => new Promise((r) => setTimeout(r, ms))
 
   // #region @deprecated
 
