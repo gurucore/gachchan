@@ -5,8 +5,8 @@ import _intersectionWith from 'lodash/intersectionWith.js'
 import _intersection from 'lodash/intersection.js'
 
 import Decimal from 'decimal.js'
-import { nanoid } from 'nanoid'
 import { TextHelper } from './TextHelper'
+import { RandomFactory } from './RandomFactory'
 
 export interface RetryOptions {
   /* Maximum number of retry attempts */
@@ -197,39 +197,33 @@ export class CommonHelper {
     return newDelay
   }
 
-  /** by combining ISOTimeString and nanoid */
-  static createRandomString() {
-    return `${new Date().toISOString().substring(0, 10)}_${nanoid()}`
-  }
+  /** by combining ISOTimeString and nanoid
+   * @deprecated use RandomFactory
+   */
+  static createRandomString = RandomFactory.createRandomString
 
   /**
    * random an integer. Max = 10, so return 0 to 10
    * @param max the maximum number this func can return
    * @returns number integer
+   * @deprecated use RandomFactory
    */
-  static getRandomIntegerTo(max: number) {
-    return this.getRandomIntegerWithin(0, max)
-  }
+  static getRandomIntegerTo = RandomFactory.getRandomIntegerTo
 
   /**
    * random an integer, return value from min to max (include min and max). (0,10) ==> return any integer from 0 to 10
    * @returns number integer
+   * @deprecated use RandomFactory
    */
-  static getRandomIntegerWithin(min: number, max: number): number {
-    const range = max - min + 1
-    return Math.floor(Math.random() * range) + min
-  }
+  static getRandomIntegerWithin = RandomFactory.getRandomIntegerWithin
 
   /**
    * return random element inside array
    * @param {*} arr
    * @returns
+   * @deprecated use RandomFactory
    */
-  static getRandomArrayElement(arr: any[]) {
-    if (Array.isArray(arr)) {
-      return arr[CommonHelper.getRandomIntegerTo(arr.length - 1)]
-    }
-  }
+  static getRandomArrayElement = RandomFactory.getRandomArrayElement
 
   /**
    * This will modify the input array https://stackoverflow.com/a/2450976

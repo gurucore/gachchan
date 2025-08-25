@@ -1,8 +1,8 @@
 {
   "name": "gachchan",
-  "version": "9.1.1",
+  "version": "9.2.2",
   "description": "Shared lib (work in node and browser) for common functionalities",
-  "releasenote": "Add nameof, sleep, isObject to CommonHelper. Add CustomError. Add deepmerge. Moving toCamelCase camelToSnakeCase. Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
+  "releasenote": "Introduce RandomFactory. Add nameof, sleep, isObject to CommonHelper. Add CustomError. Add deepmerge. Moving toCamelCase camelToSnakeCase. Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
   "license": "GPL-3.0-only",
   "keywords": [
@@ -48,24 +48,24 @@
     "release": "npm run check && npm run build"
   },
   "dependencies": {
-    "nanoid": "^5.1.4",
+    "decimal.js": "^10.5.0",
     "lodash": "^4.17.21",
-    "decimal.js": "^10.5.0"
+    "nanoid": "^5.1.4",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "latest",
-    "@types/lodash": "^4.17.4",
     "@parcel/bundler-library": "latest",
     "@parcel/config-default": "latest",
     "@parcel/packager-ts": "latest",
     "@parcel/transformer-typescript-tsc": "latest",
     "@parcel/transformer-typescript-types": "latest",
+    "@rollup/plugin-node-resolve": "latest",
+    "@types/lodash": "^4.17.4",
     "@types/node": "latest",
     "eslint": "latest",
     "parcel": "latest",
     "rimraf": "latest",
     "typescript": "latest",
     "vitest": "latest"
-  },
-  "peerDependencies": {}
+  }
 }

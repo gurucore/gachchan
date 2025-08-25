@@ -8,8 +8,22 @@ export class TestError extends CustomError {
 }
 
 describe('CustomError', () => {
+  describe('keep the message errorCode', () => {
+    it('has expected message', () => {
+      const myError = new CustomError('Something went wrong')
+      expect(myError.message).contains('Something went wrong')
+      expect(myError.errorCode).toBeUndefined()
+    })
+
+    it('has expected errorCode', () => {
+      const myError = new CustomError(1001)
+      expect(myError.message).contains('1001')
+      expect(myError.errorCode).toBe(1001)
+    })
+  })
+
   describe('stack trace', () => {
-    it('it should keep the stack trace', () => {
+    it('it should keep the stack trace and has expected message', () => {
       const myError = new CustomError('Something went wrong')
       expect(myError.stack).contains('Something went wrong')
     })

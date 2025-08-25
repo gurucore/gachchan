@@ -3,6 +3,7 @@ import { CommonHelper } from './helpers/CommonHelper'
 import { DateTimeHelper } from './helpers/DateTimeHelper'
 import { HtmlHelper } from './helpers/HtmlHelper'
 import { TextHelper } from './helpers/TextHelper'
+import { RandomFactory } from './helpers/RandomFactory'
 
 import { CustomError } from './CustomError'
 
@@ -12,6 +13,7 @@ export {
   DateTimeHelper,
   HtmlHelper,
   TextHelper,
+  RandomFactory,
   //
   CustomError,
 }
