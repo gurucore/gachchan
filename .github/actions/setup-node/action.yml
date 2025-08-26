@@ -15,5 +15,5 @@ runs:
     - name: Install dependencies
       # ci Installs dependencies strictly based on the lockfile, ensuring reproducibility., Ensures exact versions, does not modify lockfile
       # --ignore-scripts: Skips lifecycle scripts during installation (good in CI)
-      run: npm i --ignore-scripts
+      run: npm ci --ignore-scripts
       shell: bash
